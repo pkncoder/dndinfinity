@@ -1,21 +1,28 @@
-import requests
+#import all of the libraries that will be used
 import json
 
+#func is the func.py, not a real library that would be published to pypi
 from func import create_code_for_data_page
 from func import create_code_for_name_page
 
+#flask is a library that is used as a python framework to create sites with html imbeded
 from flask import Flask
 from flask import request
 from flask import render_template
 from flask import make_response
 from flask import redirect
 
+#create the flask aplication, and asigns 'app' as the main group
 app = Flask(__name__)
 
+#create a variable for the  method list, so it is simplier in the spots below
 methodlist = ['GET', 'POST']
 
+#this is the home page, what is loaded first
 @app.route('/', methods = methodlist)
 def homepage():
+
+    #this is for the first time after the user logs in
     if request.method == 'POST':
             name = request.form['username']
             favnum = request.form["favnum"]
@@ -28,7 +35,8 @@ def homepage():
             resp.set_cookie('favorite_num', favnum)
             
             return resp
-            
+
+    #this is for when the user comes back to the site    
     elif request.method == 'GET':
         try:
             name = request.cookies.get('username')
@@ -47,8 +55,10 @@ def homepage():
             return render_template('index.html')
 
 
+#this is the logout page, so the user can delete the cookies
 @app.route('/logout', methods = methodlist)
 def logout():
+    #this is to delete cookies, and redirect to the homepage
     if request.method == 'POST':
         resp = redirect("/", code=302)
         resp.set_cookie('username', '', expires=0)
@@ -59,16 +69,19 @@ def logout():
     return resp
 
 
+#this is the login page, just shows the user's name and favorite number. Will be a database in it at some point
 @app.route('/login', methods = methodlist)
 def loginpage():
     return render_template('login.html')
 
 
+#this is the developer's page, testing things out before putting it on the main site. There is a button at the bottom-left corner in the homepage
 @app.route('/dev')
 def DevPage():
     return render_template('dev.html')
 
 
+#this is the monster page that gains input
 @app.route('/monster')
 def MonsNamePage():
 
@@ -93,6 +106,7 @@ def MonsNamePage():
     )
 
 
+#this is the monster page that shows/gains data
 @app.route('/monsterdata', methods=['GET', 'POST'])
 def ClsDataPage():
 
@@ -116,8 +130,7 @@ def ClsDataPage():
     )
 
 
-
-
+#this is the class page that gains input
 @app.route('/class')
 def ClsNamePage():
 
@@ -142,6 +155,7 @@ def ClsNamePage():
     )
 
 
+#this is the class page that shows/gains data
 @app.route('/classdata', methods=['GET', 'POST'])
 def MonsDataPage():
 
