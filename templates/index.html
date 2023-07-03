@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+{% if namecookie and numcookie %}
+<p>{{ namecookie }}</p>
+<p>{{ numcookie }}</p>
+
+{% elif namecookie %}
+<p>{{ namecookie }}</p>
+
+{% elif numcookie %}
+<p>{{ numcookie }}</p>
+
+{% else %}
+<p>Hello, please login!</p>
+<p>The spectail number is -> 32</p>
+
+{% endif %}
+
+<div style="text-align: center; font-size: 24px">
+    <br>
+    <br>
+    <br>
+    <h1>Welcome to dndinfinity</h1>
+    <p>This is an interactive site that can show stats for monsters, spells, classes, etc.</p>
+    <p>It also has a built in random number genorator for dice set choosing, and a dice roller!</p>
+    <p>If you create an acount you can set favorite stat blocks, save some notes, and even your characters.</p>
+    <br>
+    <br>
+    <h2>Info about this site</h2>
+    <p>Some spells, monsters, classes, etc will not show up.</p>
+    <p>We apologize as this data is not accessable due to the only avalible data is the free rulebook.</p>
+    <p>This is still in development, and will not be done for a while (meant to keep me busy).</p>
+    <br>
+    <br>
+
+</div>
+<button style="outline-color: white; background-color: white" onclick="showdevtools()"></button>
+{% endblock %}

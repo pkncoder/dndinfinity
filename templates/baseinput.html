@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{formated_query_name}} Page{% endblock %}
+
+{% block content %}
+
+<div style="font-size: 18px;">
+  <form method="post" action="/{{next_page_link}}">
+
+    <label for="{{form_name}}" style="font-size: 18px;">{{formated_query_name}} name: </label>
+    <input type="text" id="{{form_name}}" name="{{form_name}}" style="font-size: 18px;"/>
+
+  </form>
+
+  <br>
+
+  <p>Or, you can click on any link below (These are all of the available data blocks for this querry)</p>
+
+  <ul>
+    
+    {% for name in namelist %} 
+
+    <li></li><a href="/{{next_page_link}}?name={{name}}">{{name}}</a></li>
+    <br>
+
+    {% endfor %}
+
+  </ul>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<script>
+    window.onload=function(){
+        document.getElementById("devtoolsbutton").style.display='none';
+      
+      }
+      function showdevtools(){
+        document.getElementById("devtoolsbutton").style.display='block';
+      }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>{% block title %}Base Page{% endblock %}</title>
+</head>
+
+<body>
+
+    <nav>
+        <ul id="nav_ul">
+            <li><a href="/">Home</a></li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Main Use Querries</a>
+                <div class="dropdown-content">
+                    <a href="/monster">Monster</a>
+                    <a href="/spell">Spells</a>
+                    <a href="/class">Class</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript">Advanced Querries</a>
+                <div class="dropdown-content">
+                    <a href="/abilityscore">Ability Scores</a>
+                    <a href="/races">Races</a>
+                </div>
+            </li>
+
+            <li id="devtoolsbutton"><a href="/dev">Dev</a></li>
+
+            {% if namecookie %}
+            <li id="login_navbar"><a href="/logout">Logout</a></li>
+
+            {% else %}
+            <li id="login_navbar"><a href="/login">Login</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+
+    <br>
+
+    <div class="outside_border">
+        {% block content %} {% endblock %}
+    </div>
+
+</body>
+
+</html>

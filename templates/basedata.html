@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{formated_query_name}} Data Page{% endblock %}
+
+{% block content %}
+
+<div>
+    <h2>{{formated_query_name}} Name: {{ user_input }}</h2>
+    <p><b>If there is text going off of the screen, just scroll!</b></p>
+
+    {% if image %}
+
+        <div id="image">
+            <img src="https://www.dnd5eapi.co{{ image }}">
+        </div>
+
+    {% endif %}
+
+    <div>
+        <pre style="overflow:auto; word-wrap: break-word;">{{ json_data }}</pre>
+    </div>
+
+</div>
+
+{% endblock %}
