@@ -4,13 +4,14 @@ import requests
 
 def format_for_api(user_input):
     user_input = user_input.lower()\
-        .replace(', ', '-')\
-            .replace(' form', '')\
-                .replace(' ', '-')\
-                    .replace('(', '')\
-                        .replace(')', '')\
-                            .replace("'", '')\
-                                .replace('/', '-')
+        .replace(',  +1, +2, or +3', '')\
+            .replace(', ', '-')\
+                .replace(' form', '')\
+                    .replace(' ', '-')\
+                        .replace('(', '')\
+                            .replace(')', '')\
+                                .replace("'", '')\
+                                    .replace('/', '-')
     return user_input
 
 
