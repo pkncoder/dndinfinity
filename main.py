@@ -466,3 +466,193 @@ def EqcDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
+@app.route('/feats', methods=methodlist)
+def FetNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'feats'
+    next_page_link = 'featdata'
+    form_name = 'fetname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/featdata', methods=methodlist)
+def FetDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'fetname'
+    query_name = 'feats'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/languages', methods=methodlist)
+def LanNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'languages'
+    next_page_link = 'languagedata'
+    form_name = 'lanname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/languagedata', methods=methodlist)
+def LanDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'lanname'
+    query_name = 'languages'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/proficiencies', methods=methodlist)
+def PofNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'proficiencies'
+    next_page_link = 'proficienciedata'
+    form_name = 'pofname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/proficienciedata', methods=methodlist)
+def PofDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'pofname'
+    query_name = 'proficiencies'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/rule-sections', methods=methodlist)
+def RlsNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'rule-sections'
+    next_page_link = 'rule-sectiondata'
+    form_name = 'rlsname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/rule-sectiondata', methods=methodlist)
+def RlsDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'rlsname'
+    query_name = 'rule-sections'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/rules', methods=methodlist)
+def RulNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'rules'
+    next_page_link = 'ruledata'
+    form_name = 'rulname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/ruledata', methods=methodlist)
+def RulDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'rulname'
+    query_name = 'rules'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/subraces', methods=methodlist)
+def SbrNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'subraces'
+    next_page_link = 'subracedata'
+    form_name = 'sbrname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/subracedata', methods=methodlist)
+def SbrDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'sbrname'
+    query_name = 'subraces'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/traits', methods=methodlist)
+def TrtNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'traits'
+    next_page_link = 'traitdata'
+    form_name = 'trtname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/traitdata', methods=methodlist)
+def TrtDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'trtname'
+    query_name = 'traits'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/weapon-properties', methods=methodlist)
+def WppNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'weapon-properties'
+    next_page_link = 'weapon-propertiedata'
+    form_name = 'wppname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/weapon-propertiedata', methods=methodlist)
+def WppDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'wppname'
+    query_name = 'weapon-properties'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
