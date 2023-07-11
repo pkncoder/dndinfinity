@@ -394,3 +394,75 @@ def BgdDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
+@app.route('/conditions', methods=methodlist)
+def ConNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'conditions'
+    next_page_link = 'conditiondata'
+    form_name = 'conname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/conditiondata', methods=methodlist)
+def ConDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'conname'
+    query_name = 'conditions'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/damage-types', methods=methodlist)
+def DmtNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'damage-types'
+    next_page_link = 'damage-typedata'
+    form_name = 'dmtname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/damage-typedata', methods=methodlist)
+def DmtDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'dmtname'
+    query_name = 'damage-types'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/equipment-categories', methods=methodlist)
+def EqcNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'equipment-categories'
+    next_page_link = 'equipment-categorydata'
+    form_name = 'eqcname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/equipment-categorydata', methods=methodlist)
+def EqcDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'eqcname'
+    query_name = 'equipment-categories'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
