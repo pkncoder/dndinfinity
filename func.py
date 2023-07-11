@@ -1,6 +1,9 @@
-from flask import request
-
 import requests
+
+import json
+
+from flask import request
+from flask import render_template
 
 def format_for_api(user_input):
     user_input = user_input.lower()\
@@ -67,3 +70,36 @@ def create_code_for_name_page(query_name, suffix_to_remove):
     namelist = [data["name"] for data in user_example_data]
 
     return formated_query_name, namelist
+
+
+def create_data_page(form_name, query_name, suffix_to_remove):
+
+    #gain the data that we need, all the code with comments are in func.py
+    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
+    
+    #finnaly the template is rendered with all of the needs
+    return render_template(
+
+        'basedata.html',
+        user_input = user_input,
+        json_data = json.dumps(json_data, indent = 4),
+        image = image,
+        formated_query_name = formated_query_name,
+    )
+
+
+def create_input_page(query_name, suffix_to_remove, next_page_link, form_name):
+
+    #gain the data that we need, all the code with comments are in func.py
+    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
+    
+    #finnaly the template is rendered with all of the needs
+    return render_template(
+
+        'baseinput.html',
+        namelist = namelist,
+        query_name = query_name,
+        next_page_link = next_page_link,
+        form_name = form_name,
+        formated_query_name = formated_query_name,
+    )

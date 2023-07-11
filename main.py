@@ -7,6 +7,8 @@ import json
 #func is the func.py, not a real library that would be published to pypi
 from func import create_code_for_data_page
 from func import create_code_for_name_page
+from func import create_data_page
+from func import create_input_page
 
 #flask is a library that is used as a python framework to create sites with html imbeded
 from flask import Flask
@@ -90,23 +92,12 @@ def MonsNamePage():
 
     #first, set the vairiables that will be used during computing
     query_name = 'monsters'
-    html_page = 'monsinput.html'
     next_page_link = 'monsterdata'
     form_name = 'monsname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-
-    #finnaly, the temlate is rendered with all of the vairiables needed
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 #this is the monster page that shows/gains data
@@ -116,21 +107,10 @@ def MonsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'monsname'
     query_name = 'monsters'
-    html_page = 'monsdata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 #this is the class page that gains input
@@ -139,23 +119,12 @@ def ClsNamePage():
 
     #first, set the vairiables that will be used during computing
     query_name = 'classes'
-    html_page = 'clsinput.html'
     next_page_link = 'classdata'
     form_name = 'clsname'
     suffix_to_remove = 'es'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-
-    #finnaly, the temlate is rendered with all of the vairiables needed
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 #this is the class page that shows/gains data
@@ -165,44 +134,22 @@ def ClsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'clsname'
     query_name = 'classes'
-    html_page = 'clsdata.html'
     suffix_to_remove = 'es'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/abilityscores', methods=methodlist)
 def AbSNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'ability-scores'
-    html_page = 'absinput.html'
     next_page_link = 'abilityscoredata'
     form_name = 'absname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-
-    #finnaly, the temlate is rendered with all of the vairiables needed
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/abilityscoredata', methods=methodlist)
@@ -210,44 +157,22 @@ def AbsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'absname'
     query_name = 'ability-scores'
-    html_page = 'absdata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/spells', methods=methodlist)
 def SplNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'spells'
-    html_page = 'splinput.html'
     next_page_link = 'spelldata'
     form_name = 'splname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-
-    #finnaly, the temlate is rendered with all of the vairiables needed
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/spelldata', methods=methodlist)
@@ -255,44 +180,22 @@ def SplDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'splname'
     query_name = 'spells'
-    html_page = 'spldata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/races', methods=methodlist)
 def RcsNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'races'
-    html_page = 'rcsinput.html'
     next_page_link = 'racedata'
     form_name = 'rcsname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/racedata', methods=methodlist)
@@ -300,44 +203,22 @@ def RcsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'rcsname'
     query_name = 'races'
-    html_page = 'rcsdata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/magicitems', methods=methodlist)
 def MgiNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'magic-items'
-    html_page = 'mgiinput.html'
     next_page_link = 'magicitemdata'
     form_name = 'mginame'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/magicitemdata', methods=methodlist)
@@ -345,44 +226,22 @@ def MgiDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'mginame'
     query_name = 'magic-items'
-    html_page = 'mgidata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/skills', methods=methodlist)
 def SklNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'skills'
-    html_page = 'sklinput.html'
     next_page_link = 'skilldata'
     form_name = 'sklname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/skilldata', methods=methodlist)
@@ -390,42 +249,22 @@ def SklDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'sklname'
     query_name = 'skills'
-    html_page = 'skldata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+
 @app.route('/magicschools', methods=methodlist)
 def MgsNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'magic-schools'
-    html_page = 'mgsinput.html'
     next_page_link = 'magicschooldata'
     form_name = 'mgsname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/magicschooldata', methods=methodlist)
@@ -433,44 +272,22 @@ def MgsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'mgsname'
     query_name = 'magic-schools'
-    html_page = 'mgsdata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/equipment', methods=methodlist)
 def EqiNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'equipment'
-    html_page = 'eqiinput.html'
     next_page_link = 'equipmentdata'
     form_name = 'eqiname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/equipmentdata', methods=methodlist)
@@ -478,44 +295,22 @@ def EqiDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'eqiname'
     query_name = 'equipment'
-    html_page = 'eqidata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/features', methods=methodlist)
 def FtuNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'features'
-    html_page = 'ftuinput.html'
     next_page_link = 'featuredata'
     form_name = 'ftuname'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/featuredata', methods=methodlist)
@@ -523,44 +318,22 @@ def FtuDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'ftuname'
     query_name = 'features'
-    html_page = 'ftudata.html'
     suffix_to_remove = 's'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
 @app.route('/subclasses', methods=methodlist)
 def SbcNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'subclasses'
-    html_page = 'sbcinput.html'
     next_page_link = 'subclassdata'
     form_name = 'sbcname'
     suffix_to_remove = 'es'
 
-    #gain the data that we need, all the code with comments are in func.py
-    formated_query_name, namelist = create_code_for_name_page(query_name, suffix_to_remove)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
-        html_page,
-        namelist = namelist,
-        query_name = query_name,
-        next_page_link = next_page_link,
-        form_name = form_name,
-        formated_query_name = formated_query_name,
-    )
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
 @app.route('/subclassdata', methods=methodlist)
@@ -568,20 +341,56 @@ def SbcDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'sbcname'
     query_name = 'subclasses'
-    html_page = 'sbcdata.html'
     suffix_to_remove = 'es'
 
-    #gain the data that we need, all the code with comments are in func.py
-    user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
-    
-    #finnaly the template is rendered with all of the needs
-    return render_template(
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
-        html_page,
-        user_input = user_input,
-        json_data = json.dumps(json_data, indent = 4),
-        image = image,
-        formated_query_name = formated_query_name,
-    )
+
+@app.route('/alignments', methods=methodlist)
+def AlnNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'alignments'
+    next_page_link = 'alignmentdata'
+    form_name = 'alnname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+@app.route('/alignmentdata', methods=methodlist)
+def AlnDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'alnname'
+    query_name = 'alignments'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/backgrounds', methods=methodlist)
+def BgdNamePage():
+    #first, set the vairiables that will be used during computing
+    query_name = 'backgrounds'
+    next_page_link = 'backgrounddata'
+    form_name = 'bgdname'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
+
+
+
+@app.route('/backgrounddata', methods=methodlist)
+def BgdDataPage():
+    #first, set the vairiables that will be used during computing
+    form_name = 'bgdname'
+    query_name = 'backgrounds'
+    suffix_to_remove = 's'
+
+    #then we create the data page, all code for the functions are in func.py
+    return create_data_page(form_name, query_name, suffix_to_remove)
 
 
