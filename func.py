@@ -1,5 +1,5 @@
 import requests
-
+import dictionary_search
 import json
 
 from flask import request
@@ -77,6 +77,15 @@ def create_data_page(form_name, query_name, suffix_to_remove):
     #gain the data that we need, all the code with comments are in func.py
     user_input, json_data, image, formated_query_name = create_code_for_data_page(query_name, suffix_to_remove, form_name)
     
+    #gain the api regulated input so it can be used to re-create the url
+    api_regulated_input = format_for_api(user_input)
+
+    #set the url so it can be used in basedata.html to get all of the mentioned urls
+    url = f'https://dnd5eapi.co/api/{query_name}/{api_regulated_input}'
+
+    #then search though the json data and find all of the mentioned urls
+    urls = dictionary_search.search_all(json_data, 'url')
+
     #finnaly the template is rendered with all of the needs
     return render_template(
 
@@ -85,6 +94,8 @@ def create_data_page(form_name, query_name, suffix_to_remove):
         json_data = json.dumps(json_data, indent = 4),
         image = image,
         formated_query_name = formated_query_name,
+        url = url,
+        urls = urls,
     )
 
 
@@ -103,3 +114,23 @@ def create_input_page(query_name, suffix_to_remove, next_page_link, form_name):
         form_name = form_name,
         formated_query_name = formated_query_name,
     )
+
+
+def create_code_for_custom_data_page(form_name):
+    #test to see if user is using the input box, or the examples below the input box
+    user_input = gain_user_input(form_name)
+
+    #this grabs the data from the api, in json format
+    json_data = requests.get(f'https://www.dnd5eapi.co{user_input}').json()
+
+    #checks for a image so it can be shown on the site
+    image = check_for_image(json_data)
+
+    #set the url so it can be used in basedata.html or ctudata.html to get all of the mentioned urls
+    url = f'https://dnd5eapi.co{user_input}'
+
+    #then search though the json data and find all of the mentioned urls
+    urls = dictionary_search.search_all(json_data, 'url')
+
+    #returns the data so it can be used in the site
+    return user_input, json_data, image, url, urls

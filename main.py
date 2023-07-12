@@ -1,14 +1,10 @@
-#rcs=races, mgi=magicitems, skl=skills, mgs=magicschools, eqi=equipment, ftu=fetures
-
-
 #import all of the libraries that will be used
 import json
 
 #func is the func.py, not a real library that would be published to pypi
-from func import create_code_for_data_page
-from func import create_code_for_name_page
 from func import create_data_page
 from func import create_input_page
+from func import create_code_for_custom_data_page
 
 #flask is a library that is used as a python framework to create sites with html imbeded
 from flask import Flask
@@ -83,7 +79,7 @@ def loginpage():
 #this is the developer's page, testing things out before putting it on the main site. There is a button at the bottom-left corner in the homepage
 @app.route('/dev')
 def DevPage():
-    return render_template('dev.html')
+    return render_template('dev.html',)
 
 
 #this is the monster page that gains input
@@ -656,3 +652,45 @@ def WppDataPage():
 
     #then we create the data page, all code for the functions are in func.py
     return create_data_page(form_name, query_name, suffix_to_remove)
+
+
+@app.route('/custom-urls', methods=methodlist)
+def CtuInputPage():
+    
+    #first set the variables that will be needed during the computing
+    form_name = 'ctuname'
+    next_page_link = 'custom-urldata'
+    
+    #at the end, render the html template so it can be seen on screen
+    return render_template(
+        'ctuinput.html', 
+        form_name=form_name,
+        next_page_link = next_page_link,
+    )
+
+
+@app.route('/custom-urldata', methods=methodlist)
+def CtuDataPage():
+
+    #first, set the form name that will be needed during the computing
+    form_name = 'ctuname'
+
+    #create the code for the custom data page, the code can be overiewed in func.py
+    user_input, json_data, image, url, urls = create_code_for_custom_data_page(form_name)
+
+    #at the end, render the html template so it can be seen on screen
+    return render_template(
+
+        'ctudata.html',
+        user_input = user_input, 
+        json_data = json.dumps(
+        
+            json_data, 
+            indent = 4,
+
+        ), 
+        image = image,
+        url = url,
+        urls = urls,
+
+    )
