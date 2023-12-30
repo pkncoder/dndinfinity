@@ -2,25 +2,30 @@
 import json
 
 #func is the func.py, not a real library that would be published to pypi
-from func import create_data_page
-from func import create_input_page
-from func import create_code_for_custom_data_page
+from dndinfinity.func import create_data_page
+from dndinfinity.func import create_input_page
+from dndinfinity.func import create_code_for_custom_data_page
 
 #flask is a library that is used as a python framework to create sites with html imbeded
-from flask import Flask
 from flask import request
 from flask import render_template
 from flask import make_response
 from flask import redirect
+from flask import Blueprint
 
-#create the flask aplication, and asigns 'app' as the main group
-app = Flask(__name__)
+DnDI = Blueprint(
+    'DnDI',
+    __name__,
+    template_folder='templates',
+    static_folder='static',
+    static_url_path='/dndinfinity',
+)
 
 #create a variable for the  method list, so it is simplier in the spots below
 methodlist = ['GET', 'POST']
 
 #this is the home page, what is loaded first
-@app.route('/', methods = methodlist)
+@DnDI.route('/dndinfinity', methods = methodlist)
 def homepage():
 
     #this is for the first time after the user logs in
@@ -53,37 +58,22 @@ def homepage():
             return resp
 
         except:
-            return render_template('index.html')
-
-
-#this is the logout page, so the user can delete the cookies
-@app.route('/logout', methods = methodlist)
-def logout():
-    #this is to delete cookies, and redirect to the homepage
-    if request.method == 'POST':
-        resp = redirect("/", code=302)
-        resp.set_cookie('username', '', expires=0)
-    
-    elif request.method == "GET":
-        resp = make_response(render_template('logout.html')) 
-
-    return resp
-
-
-#this is the login page, just shows the user's name and favorite number. Will be a database in it at some point
-@app.route('/login', methods = methodlist)
-def loginpage():
-    return render_template('login.html')
+            return render_template('DnDIhome.html')
 
 
 #this is the developer's page, testing things out before putting it on the main site. There is a button at the bottom-left corner in the homepage
-@app.route('/dev')
+@DnDI.route('/dndinfinity/dev')
 def DevPage():
-    return render_template('dev.html',)
+    return render_template('DnDIdev.html',)
+
+
+@DnDI.route('/dndinfinity/dice')
+def DicePage():
+    return render_template('DnDIdice.html')
 
 
 #this is the monster page that gains input
-@app.route('/monsters')
+@DnDI.route('/dndinfinity/monsters')
 def MonsNamePage():
 
     #first, set the vairiables that will be used during computing
@@ -97,7 +87,7 @@ def MonsNamePage():
 
 
 #this is the monster page that shows/gains data
-@app.route('/monsterdata', methods=['GET', 'POST'])
+@DnDI.route('/dndinfinity/monsterdata', methods=['GET', 'POST'])
 def MonsDataPage():
 
     #first, set the vairiables that will be used during computing
@@ -110,7 +100,7 @@ def MonsDataPage():
 
 
 #this is the class page that gains input
-@app.route('/classes')
+@DnDI.route('/dndinfinity/classes')
 def ClsNamePage():
 
     #first, set the vairiables that will be used during computing
@@ -124,7 +114,7 @@ def ClsNamePage():
 
 
 #this is the class page that shows/gains data
-@app.route('/classdata', methods=methodlist)
+@DnDI.route('/dndinfinity/classdata', methods=methodlist)
 def ClsDataPage():
 
     #first, set the vairiables that will be used during computing
@@ -136,7 +126,7 @@ def ClsDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/abilityscores', methods=methodlist)
+@DnDI.route('/dndinfinity/abilityscores', methods=methodlist)
 def AbSNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'ability-scores'
@@ -148,7 +138,7 @@ def AbSNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/abilityscoredata', methods=methodlist)
+@DnDI.route('/dndinfinity/abilityscoredata', methods=methodlist)
 def AbsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'absname'
@@ -159,7 +149,7 @@ def AbsDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/spells', methods=methodlist)
+@DnDI.route('/dndinfinity/spells', methods=methodlist)
 def SplNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'spells'
@@ -171,7 +161,7 @@ def SplNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/spelldata', methods=methodlist)
+@DnDI.route('/dndinfinity/spelldata', methods=methodlist)
 def SplDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'splname'
@@ -182,7 +172,7 @@ def SplDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/races', methods=methodlist)
+@DnDI.route('/dndinfinity/races', methods=methodlist)
 def RcsNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'races'
@@ -194,7 +184,7 @@ def RcsNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/racedata', methods=methodlist)
+@DnDI.route('/dndinfinity/racedata', methods=methodlist)
 def RcsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'rcsname'
@@ -205,7 +195,7 @@ def RcsDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/magicitems', methods=methodlist)
+@DnDI.route('/dndinfinity/magicitems', methods=methodlist)
 def MgiNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'magic-items'
@@ -217,7 +207,7 @@ def MgiNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/magicitemdata', methods=methodlist)
+@DnDI.route('/dndinfinity/magicitemdata', methods=methodlist)
 def MgiDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'mginame'
@@ -228,7 +218,7 @@ def MgiDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/skills', methods=methodlist)
+@DnDI.route('/dndinfinity/skills', methods=methodlist)
 def SklNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'skills'
@@ -240,7 +230,7 @@ def SklNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/skilldata', methods=methodlist)
+@DnDI.route('/dndinfinity/skilldata', methods=methodlist)
 def SklDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'sklname'
@@ -251,7 +241,7 @@ def SklDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/magicschools', methods=methodlist)
+@DnDI.route('/dndinfinity/magicschools', methods=methodlist)
 def MgsNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'magic-schools'
@@ -263,7 +253,7 @@ def MgsNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/magicschooldata', methods=methodlist)
+@DnDI.route('/dndinfinity/magicschooldata', methods=methodlist)
 def MgsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'mgsname'
@@ -274,7 +264,7 @@ def MgsDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/equipment', methods=methodlist)
+@DnDI.route('/dndinfinity/equipment', methods=methodlist)
 def EqiNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'equipment'
@@ -286,7 +276,7 @@ def EqiNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/equipmentdata', methods=methodlist)
+@DnDI.route('/dndinfinity/equipmentdata', methods=methodlist)
 def EqiDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'eqiname'
@@ -297,7 +287,7 @@ def EqiDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/features', methods=methodlist)
+@DnDI.route('/dndinfinity/features', methods=methodlist)
 def FtuNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'features'
@@ -309,7 +299,7 @@ def FtuNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/featuredata', methods=methodlist)
+@DnDI.route('/dndinfinity/featuredata', methods=methodlist)
 def FtuDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'ftuname'
@@ -320,7 +310,7 @@ def FtuDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/subclasses', methods=methodlist)
+@DnDI.route('/dndinfinity/subclasses', methods=methodlist)
 def SbcNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'subclasses'
@@ -332,7 +322,7 @@ def SbcNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/subclassdata', methods=methodlist)
+@DnDI.route('/dndinfinity/subclassdata', methods=methodlist)
 def SbcDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'sbcname'
@@ -343,7 +333,7 @@ def SbcDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/alignments', methods=methodlist)
+@DnDI.route('/dndinfinity/alignments', methods=methodlist)
 def AlnNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'alignments'
@@ -355,7 +345,7 @@ def AlnNamePage():
     return create_input_page(query_name, suffix_to_remove, next_page_link, form_name)
 
 
-@app.route('/alignmentdata', methods=methodlist)
+@DnDI.route('/dndinfinity/alignmentdata', methods=methodlist)
 def AlnDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'alnname'
@@ -366,7 +356,7 @@ def AlnDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/backgrounds', methods=methodlist)
+@DnDI.route('/dndinfinity/backgrounds', methods=methodlist)
 def BgdNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'backgrounds'
@@ -379,7 +369,7 @@ def BgdNamePage():
 
 
 
-@app.route('/backgrounddata', methods=methodlist)
+@DnDI.route('/dndinfinity/backgrounddata', methods=methodlist)
 def BgdDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'bgdname'
@@ -390,7 +380,7 @@ def BgdDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/conditions', methods=methodlist)
+@DnDI.route('/dndinfinity/conditions', methods=methodlist)
 def ConNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'conditions'
@@ -403,7 +393,7 @@ def ConNamePage():
 
 
 
-@app.route('/conditiondata', methods=methodlist)
+@DnDI.route('/dndinfinity/conditiondata', methods=methodlist)
 def ConDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'conname'
@@ -414,7 +404,7 @@ def ConDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/damage-types', methods=methodlist)
+@DnDI.route('/dndinfinity/damage-types', methods=methodlist)
 def DmtNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'damage-types'
@@ -427,7 +417,7 @@ def DmtNamePage():
 
 
 
-@app.route('/damage-typedata', methods=methodlist)
+@DnDI.route('/dndinfinity/damage-typedata', methods=methodlist)
 def DmtDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'dmtname'
@@ -438,7 +428,7 @@ def DmtDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/equipment-categories', methods=methodlist)
+@DnDI.route('/dndinfinity/equipment-categories', methods=methodlist)
 def EqcNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'equipment-categories'
@@ -451,7 +441,7 @@ def EqcNamePage():
 
 
 
-@app.route('/equipment-categorydata', methods=methodlist)
+@DnDI.route('/dndinfinity/equipment-categorydata', methods=methodlist)
 def EqcDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'eqcname'
@@ -462,7 +452,7 @@ def EqcDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/feats', methods=methodlist)
+@DnDI.route('/dndinfinity/feats', methods=methodlist)
 def FetNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'feats'
@@ -475,7 +465,7 @@ def FetNamePage():
 
 
 
-@app.route('/featdata', methods=methodlist)
+@DnDI.route('/dndinfinity/featdata', methods=methodlist)
 def FetDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'fetname'
@@ -486,7 +476,7 @@ def FetDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/languages', methods=methodlist)
+@DnDI.route('/dndinfinity/languages', methods=methodlist)
 def LanNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'languages'
@@ -499,7 +489,7 @@ def LanNamePage():
 
 
 
-@app.route('/languagedata', methods=methodlist)
+@DnDI.route('/dndinfinity/languagedata', methods=methodlist)
 def LanDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'lanname'
@@ -510,7 +500,7 @@ def LanDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/proficiencies', methods=methodlist)
+@DnDI.route('/dndinfinity/proficiencies', methods=methodlist)
 def PofNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'proficiencies'
@@ -523,7 +513,7 @@ def PofNamePage():
 
 
 
-@app.route('/proficienciedata', methods=methodlist)
+@DnDI.route('/dndinfinity/proficienciedata', methods=methodlist)
 def PofDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'pofname'
@@ -534,7 +524,7 @@ def PofDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/rule-sections', methods=methodlist)
+@DnDI.route('/dndinfinity/rule-sections', methods=methodlist)
 def RlsNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'rule-sections'
@@ -547,7 +537,7 @@ def RlsNamePage():
 
 
 
-@app.route('/rule-sectiondata', methods=methodlist)
+@DnDI.route('/dndinfinity/rule-sectiondata', methods=methodlist)
 def RlsDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'rlsname'
@@ -558,7 +548,7 @@ def RlsDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/rules', methods=methodlist)
+@DnDI.route('/dndinfinity/rules', methods=methodlist)
 def RulNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'rules'
@@ -571,7 +561,7 @@ def RulNamePage():
 
 
 
-@app.route('/ruledata', methods=methodlist)
+@DnDI.route('/dndinfinity/ruledata', methods=methodlist)
 def RulDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'rulname'
@@ -582,7 +572,7 @@ def RulDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/subraces', methods=methodlist)
+@DnDI.route('/dndinfinity/subraces', methods=methodlist)
 def SbrNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'subraces'
@@ -595,7 +585,7 @@ def SbrNamePage():
 
 
 
-@app.route('/subracedata', methods=methodlist)
+@DnDI.route('/dndinfinity/subracedata', methods=methodlist)
 def SbrDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'sbrname'
@@ -606,7 +596,7 @@ def SbrDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/traits', methods=methodlist)
+@DnDI.route('/dndinfinity/traits', methods=methodlist)
 def TrtNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'traits'
@@ -619,7 +609,7 @@ def TrtNamePage():
 
 
 
-@app.route('/traitdata', methods=methodlist)
+@DnDI.route('/dndinfinity/traitdata', methods=methodlist)
 def TrtDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'trtname'
@@ -630,7 +620,7 @@ def TrtDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/weapon-properties', methods=methodlist)
+@DnDI.route('/dndinfinity/weapon-properties', methods=methodlist)
 def WppNamePage():
     #first, set the vairiables that will be used during computing
     query_name = 'weapon-properties'
@@ -643,7 +633,7 @@ def WppNamePage():
 
 
 
-@app.route('/weapon-propertiedata', methods=methodlist)
+@DnDI.route('/dndinfinity/weapon-propertiedata', methods=methodlist)
 def WppDataPage():
     #first, set the vairiables that will be used during computing
     form_name = 'wppname'
@@ -654,7 +644,7 @@ def WppDataPage():
     return create_data_page(form_name, query_name, suffix_to_remove)
 
 
-@app.route('/custom-urls', methods=methodlist)
+@DnDI.route('/dndinfinity/custom-urls', methods=methodlist)
 def CtuInputPage():
     
     #first set the variables that will be needed during the computing
@@ -663,13 +653,13 @@ def CtuInputPage():
     
     #at the end, render the html template so it can be seen on screen
     return render_template(
-        'ctuinput.html', 
+        'DnDIctuinput.html', 
         form_name=form_name,
         next_page_link = next_page_link,
     )
 
 
-@app.route('/custom-urldata', methods=methodlist)
+@DnDI.route('/dndinfinity/custom-urldata', methods=methodlist)
 def CtuDataPage():
 
     #first, set the form name that will be needed during the computing
@@ -681,7 +671,7 @@ def CtuDataPage():
     #at the end, render the html template so it can be seen on screen
     return render_template(
 
-        'ctudata.html',
+        'DnDIctudata.html',
         user_input = user_input, 
         json_data = json.dumps(
         

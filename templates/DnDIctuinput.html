@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'DnDIbase.html' %}
 
 {% block title %}
 
@@ -9,7 +9,7 @@ Custom Urls
 {% block content %}
 
 <div style="font-size: 18px;">
-    <form method="post" action="/{{next_page_link}}">
+    <form method="post" action="/dndinfinity/{{next_page_link}}">
   
       <label for="{{form_name}}" style="font-size: 18px;">Url name: </label>
       <input type="text" id="{{form_name}}" name="{{form_name}}" style="font-size: 18px;"/>

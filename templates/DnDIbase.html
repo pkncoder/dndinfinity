@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<script>
+    window.onload=function(){
+        document.getElementById("devtoolsbutton").style.display='none';
+      
+      }
+      function showdevtools(){
+        document.getElementById("devtoolsbutton").style.display='block';
+      }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/dndinfiniystyle.css">
+    <title>{% block title %}Base Page{% endblock %}</title>
+</head>
+
+<body>
+
+    <nav>
+        <ul id="nav_ul">
+            <li><a href="/dndinfinity">Home</a></li>
+
+    
+
+        
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Main Use Querries</a>
+                <div class="dropdown-content">
+                    <a href="/dndinfinity/damage-types">Damage Types</a>
+                    <a href="/dndinfinity/magicitems">Magic Items</a>
+                    <a href="/dndinfinity/monsters">Monster</a>
+                    <a href="/dndinfinity/proficiencies">Proficiencies</a>
+                    <a href="/dndinfinity/races">Races</a>
+                    <a href="/dndinfinity/skills">Skills</a>
+                    <a href="/dndinfinity/spells">Spells</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Sub-Used Querries</a>
+                <div class="dropdown-content">
+                    <a href="/dndinfinity/abilityscores">Ability Scores</a>
+                    <a href="/dndinfinity/alignments">Alignments</a>
+                    <a href="/dndinfinity/classes">Classes</a>
+                    <a href="/dndinfinity/conditions">Conditions</a>
+                    <a href="/dndinfinity/equipment">Equipment</a>
+                    <a href="/dndinfinity/languages">Languages</a>
+                    <a href="/dndinfinity/magicschools">Magic Schools</a>  
+                    <a href="/dndinfinity/subclasses">Subclasses</a>
+                    <a href="/dndinfinity/subraces">Subraces</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Small Data Querries</a>
+                <div class="dropdown-content">
+                    <a href="/dndinfinity/backgrounds">Backgrounds</a>
+                    <a href="/dndinfinity/feats">Feats</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <a href="javascript">Advanced Querries</a>
+                <div class="dropdown-content">
+                    <a href="/dndinfinity/custom-urls">Custom Urls</a>
+                    <a href="/dndinfinity/features">Features</a>
+                    <a href="/dndinfinity/rule-sections">Rule Sections</a>
+                    <a href="/dndinfinity/rules">Rules</a>
+                    <a href="/dndinfinity/traits">Traits</a>
+                </div>
+            </li>
+
+        
+
+
+    
+
+
+            <li id="devtoolsbutton"><a href="/dndinfinity/dev">Dev</a></li>
+
+            <li><a href="/dndinfinity/dice">Dice</a></li>
+
+            <li style="float: right;"><a href="/">Back To Tools</a></li>
+        </ul>
+    </nav>
+
+    <br>
+
+    <div class="outside_border">
+        {% block content %} {% endblock %}
+    </div>
+
+</body>
+
+</html>

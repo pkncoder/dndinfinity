@@ -89,7 +89,7 @@ def create_data_page(form_name, query_name, suffix_to_remove):
     #finnaly the template is rendered with all of the needs
     return render_template(
 
-        'basedata.html',
+        'DnDIbasedata.html',
         user_input = user_input,
         json_data = json.dumps(json_data, indent = 4),
         image = image,
@@ -107,7 +107,7 @@ def create_input_page(query_name, suffix_to_remove, next_page_link, form_name):
     #finnaly the template is rendered with all of the needs
     return render_template(
 
-        'baseinput.html',
+        'DnDIbaseinput.html',
         namelist = namelist,
         query_name = query_name,
         next_page_link = next_page_link,
